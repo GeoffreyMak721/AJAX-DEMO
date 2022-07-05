@@ -10,6 +10,10 @@ function handleSearch(e) {
   getResult(searchText);
 }
 
+/**
+ *
+ * Avec l'object XMLHttpRequest
+ */
 // function getResult(searchText) {
 //   if (searchText) {
 //     const url = `https://api.github.com/users/${searchText}`;
@@ -27,6 +31,10 @@ function handleSearch(e) {
 //   }
 // }
 
+/**
+ *
+ * Avec l' api fetch
+ */
 function getResult(searchText) {
   if (searchText) {
     const url = `https://api.github.com/users/${searchText}`;

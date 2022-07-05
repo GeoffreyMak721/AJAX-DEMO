@@ -3,7 +3,6 @@ const previewArea = document.querySelector(".preview-area");
 const search = document.querySelector("#search");
 
 form.addEventListener("submit", handleSearch);
-
 function handleSearch(e) {
   e.preventDefault();
   const searchText = search.value;
@@ -13,12 +12,12 @@ function handleSearch(e) {
 // function getResult(searchText) {
 //   if (searchText) {
 //     const url = `https://api.github.com/users/${searchText}`;
-//     const xhr = new XMLHttpRequest();
-//     xhr.open("GET", url);
-//     xhr.send();
-//     xhr.onload = function () {
-//       if (this.status === 200) {
-//         const { avatar_url, name } = JSON.parse(this.responseText);
+//     const request = new XMLHttpRequest();
+//     request.open("GET", url);
+//     request.send();
+//     request.onload = function () {
+//       if (request.status === 200) {
+//         const { avatar_url, name } = JSON.parse(request.responseText);
 //         previewArea.innerHTML = getPreview(avatar_url, name);
 //       } else {
 //         previewArea.innerHTML = getError(searchText);
@@ -26,23 +25,24 @@ function handleSearch(e) {
 //     };
 //   }
 // }
-
 function getResult(searchText) {
   if (searchText) {
     const url = `https://api.github.com/users/${searchText}`;
     fetch(url)
-      .then((res) => {
-        if (res.status === 200) {
+      .then(function (res) {
+        if (res.ok) {
+          console.log(res.json());
           return res.json();
         }
       })
-      .then((res) => {
+      .then(function (res) {
         const { avatar_url, name } = res;
         previewArea.innerHTML = getPreview(avatar_url, name);
       })
-      .catch((e) => {
+      .catch(function (error) {
         previewArea.innerHTML = getError(searchText);
       });
+    console.log("toto");
   }
 }
 
@@ -50,7 +50,7 @@ function getPreview(avatar_url, name) {
   return ` 
   <div class="content">
     <img src="${avatar_url}" alt="${name}" />
-    <p>Profil de : ${name}</p>
+    <p>Profil de :${name}</p>
   </div>`;
 }
 
